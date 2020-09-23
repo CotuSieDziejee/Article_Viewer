@@ -1,0 +1,26 @@
+zmiany:
+ - zamieniony został plik bazy danych na ten utworzony przez program 
+   w celu zachowania integralności(po ludzku: żeby się coś znowu nie spierdoliło,
+   podmieńcie ten plik w projekcie ArticleViewer)
+ - usunięto wszystkie data annotations z modeli, gdyż są niepotrzebne
+   (trzeba podmienić WSZYTKIE pliki w folder Models)
+ - dodano funkcję CreateDB, która tworzy bazę danych w przypadku jej usunięcia
+   (po prostu trzeba podmienić cały plik DbDataAccess, żeby to było.)
+ - dodano obsługę wyjątków do każdej funkcji z selectami i insertami w DbDataAccess.cs
+ - dodano klasę DbMigration, która określa w jaki sposób następuje 
+   migracja do nowej bazy danych
+ - usunięto pole Filepath oraz metodę GetFullPath z modelu Files, 
+   bo i tak będą pliki kopiowane do folderu z programem, więc
+   na chuj w sumie ma trzymać ścieżkę
+ - zmieniono pole Year w modelu Articles na typ DateTime, bo okazuje się, 
+   że jednak SQLite może przechowywać typ datetime,
+   zatem zapisywany będzie rok we właściwym formacie (np. 2137)
+ - do prawidłowego działania należy zainstalować do projektu ArticleDBLib następujące paczki:
+		- FluentMigrator,
+		- FluentMigrator.Runner
+		- FluentMigrator.Runner.SQLite
+ - a wyjebać można: sqlitepcl - takie paczki z nazwą podobną do tej, sqlite.codefirst, 
+   w sumie może zostać system.data.sqlite i ef6(chociaż to też można byłoby wyjebać - nie wiem, nie sprawdziłem)
+ - żeby zainicjalizować funkcję tworzącą bazę należy do MainWindow.xaml.cs 
+   dodać pod InitializeComponent() następującą linijkę: DbDataAccess.CreateDB()
+ - pousuwane zostały niepotrzebne usingi w dotychczas stworzonych plikach
